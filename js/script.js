@@ -40,7 +40,13 @@ function star() {
     // Change starred attribute for respective channel object
     currentChannel.starred = !currentChannel.starred;
     // Toggle star in channel list
-    $("#channel-list .selected i").toggleClass("fas far");
+    if(currentChannel.starred){
+        document.querySelector("#channel-list .selected i").classList.remove("far");
+        document.querySelector("#channel-list .selected i").classList.add("fas");
+    } else {
+        document.querySelector("#channel-list .selected i").classList.remove("fas");
+        document.querySelector("#channel-list .selected i").classList.add("far");
+    }
 }
 
 /**
@@ -78,9 +84,6 @@ function Message(text) {
     this.expiresOn = new Date(this.createdOn.getTime() + 15*60000);
     this.text = text;
     this.own = true;
-    // console.log("Created: " + this.createdOn.getDate() + "/" + (this.createdOn.getMonth() + 1) + "/" + this.createdOn.getFullYear() + " " + this.createdOn.getHours() + ":" + this.createdOn.getMinutes() + ":" + this.createdOn.getSeconds());
-    // console.log("Expires: " + this.expiresOn.getDate() + "/" + (this.expiresOn.getMonth() + 1) + "/" + this.expiresOn.getFullYear() + " " + this.expiresOn.getHours() + ":" + this.expiresOn.getMinutes() + ":" + this.expiresOn.getSeconds());
-    // console.log("minutes: "+ this.expiresOn.getMinutes() + 15*60000);
 }
 
 /**
@@ -97,6 +100,8 @@ function sendMessage() {
     // Create a new message element and append it to html
     $("#messages").append(messageElement);
     $("#chat-input").val("");
+    // Scroll to bottom of messages div after entering a new message
+    $("#messages").scrollTop($('#messages')[0].scrollHeight);
 }
 
 /**
@@ -107,12 +112,19 @@ function createMessageElement(messageObject) {
     var timeNow = new Date();
     // Calculate the minutes, that are left
     var expiresIn = Math.round((((messageObject.expiresOn - timeNow) % 86400000) % 3600000) / 60000);
+
+    // Append the class 'own' if the message's attribute 'own' is true
+    var ownClass = "";
+    messageObject.own ? ownClass = " own" : ownClass = "";
     // Create a new html message element
-    var messageElement = '<div class="message">\n    <h3><a href="http://w3w.co/' + messageObject.createdBy + '" target="_blank"><strong>' + messageObject.createdBy + '</strong></a>\n        ' + messageObject.createdOn.toLocaleString() + ' <em>' + expiresIn + ' min. left</em></h3>\n    <p>' + messageObject.text + '</p>\n    <button>+5 min.</button>\n</div>';
+    var messageElement = '<div class="message' + ownClass + '">\n    <h3><a href="http://w3w.co/' + messageObject.createdBy + '" target="_blank"><strong>' + messageObject.createdBy + '</strong></a>\n        ' + messageObject.createdOn.toLocaleString() + ' <em>' + expiresIn + ' min. left</em></h3>\n    <p>' + messageObject.text + '</p>\n    <button>+5 min.</button>\n</div>';
 
     return messageElement;
 }
 
+/**
+ * List all the available channels and append them to the body
+ */
 function listChannels() {
     var channel1 = createChannelElement(yummy);
     console.log(channel1);
@@ -123,8 +135,11 @@ function listChannels() {
     $("#channel-list").append(channel1 + '\n' + channel2 + '\n' + channel3 + '\n' + channel4 + '\n' + channel5);
 }
 
+/**
+ * create a new HTML channel element to be appended to the channel area
+ * @param channelObject the channel
+ */
 function createChannelElement(channelObject) {
-    
     // create the channel object's variable name
     var firstLetter = channelObject.name.substring(1,2).toLowerCase();
     var channelName = firstLetter + channelObject.name.substring(2);
@@ -133,7 +148,7 @@ function createChannelElement(channelObject) {
     var starred = channelObject.starred? "fas" : "far";
     
     // Create a new html channel element
-    var messageElement = '<li onclick="switchChannel(' + channelName + ')">\n        ' + channelObject.name + '\n        <span class="channel-meta">\n            <i class="' + starred + ' fa-star"></i>\n            <!-- #5 #channels #icons now with chevron -->\n            <i class="fas fa-chevron-right"></i>\n        </span>\n    </li>';
+    var messageElement = '<li onclick="switchChannel(' + channelName + ')">\n        ' + channelObject.name + '\n        <span class="channel-meta">\n            <i class="' + starred + ' fa-star"></i>\n            <!-- #5 #channels #icons now with chevron -->\n            <small>' + channelObject.expiresIn + ' min</small>\n            <small>' + channelObject.messageCount + ' new</small>\n            <i class="fas fa-chevron-right"></i>\n        </span>\n    </li>';
 
     return messageElement;
 

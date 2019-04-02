@@ -129,10 +129,6 @@ li .channel-meta {
     top: 12px;
 }
 
-li img {
-    vertical-align: middle;
-}
-
 li.selected {
     color: #3F51B5;
     border-left: 4px solid #3F51B5;
@@ -141,6 +137,16 @@ li.selected {
 i {
     font-size: 24px;
     text-align: center;
+}
+
+ul small {
+    background-color: #3F51B5;
+    color: white;
+    margin: 1px;
+    padding: 2px;
+    border-radius: 2px;
+    position: relative;
+    bottom: 4px;
 }
 
 
