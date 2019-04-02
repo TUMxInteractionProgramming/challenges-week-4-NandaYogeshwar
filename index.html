@@ -20,7 +20,8 @@
     <script src="js/channels.js"></script>
     <script src="js/script.js"></script>
 </head>
-<body>
+<body onload="listChannels()">
+        
 
 <!-- channel area -->
 <div id="channels">
@@ -33,57 +34,6 @@
 
     <!-- CHANNELS -->
     <ul id="channel-list">
-        <!-- #6 #channels #click calls our switchChannel with the corresponding name as an argument -->
-        <li onclick="switchChannel(yummy)">
-            #Yummy
-            <!-- #5 #channels #icons now grouped in .channel-meta span -->
-            <span class="channel-meta">
-                <i class="far fa-star"></i>
-                <!-- #5 #channels #icons now with chevron -->
-                <img src="http://ip.lfe.mw.tum.de/sections/chevron-right.png" alt="select">
-            </span>
-        </li>
-        <!-- #6 #channels #click calls our switchChannel with the corresponding name as an argument -->
-        <li class="selected" onclick="switchChannel(sevenContinents)">
-            #SevenContinents
-            <!-- #5 #channels #icons now grouped in .channel-meta span -->
-            <span class="channel-meta">
-                <i class="fas fa-star"></i>
-                <!-- #5 #channels #icons now with chevron -->
-                <img src="http://ip.lfe.mw.tum.de/sections/chevron-right.png" alt="select">
-            </span>
-        </li>
-        <!-- #6 #channels #click calls our switchChannel with the corresponding name as an argument -->
-        <li onclick="switchChannel(killerApp)">
-            #KillerApp
-            <!-- #5 #channels #icons now grouped in .channel-meta span -->
-            <span class="channel-meta">
-                <i class="far fa-star"></i>
-                <!-- #5 #channels #icons now with chevron -->
-                <img src="http://ip.lfe.mw.tum.de/sections/chevron-right.png" alt="select">
-            </span>
-        </li>
-        <!-- #6 #channels #click calls our switchChannel with the corresponding name as an argument -->
-        <li onclick="switchChannel(firstPersonOnMars)">
-            #FirstPersonOnMars
-            <!-- #5 #channels #icons now grouped in .channel-meta span -->
-            <span class="channel-meta">
-                <i class="fas fa-star"></i>
-                <!-- #5 #channels #icons now with chevron -->
-                <img src="http://ip.lfe.mw.tum.de/sections/chevron-right.png" alt="select">
-            </span>
-        </li>
-        <!-- #6 #channels #click calls our switchChannel with the corresponding name as an argument -->
-        <li onclick="switchChannel(octoberfest)">
-            #Octoberfest
-            <!-- #5 #channels #icons now grouped in .channel-meta span -->
-            <span class="channel-meta">
-                <i class="far fa-star"></i>
-                <!-- #5 #channels #icons now with chevron -->
-                <img src="http://ip.lfe.mw.tum.de/sections/chevron-right.png" alt="select">
-            </span>
-        </li>
-
     </ul>
 
     <!-- TAB BAR -->
@@ -160,8 +110,10 @@
 
     <!-- #5 #smileys #insert the chat-bar -->
     <div id="chat-bar"> <!-- #6 #smile #show the menu on click -->
-        <i class="far fa-smile" id="emojis-button" onclick="toggleEmojis()"><span></span></i>
+        <i class="far fa-smile" id="emojis-button" onclick="toggleEmojis()"></i>
         <div id="emojis">&#x1F601; &#x1F602; &#x1F603; &#x1F604; &#x1F605; &#x1F606; &#x1F607;</div>
+        <input id="chat-input" placeholder="Message..." type="text" maxlength="140"/>
+        <i class="fas fa-arrow-right" onclick="sendMessage()"></i>
     </div>
 </div>
 

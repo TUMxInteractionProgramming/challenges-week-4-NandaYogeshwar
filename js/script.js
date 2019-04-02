@@ -65,3 +65,76 @@ function toggleEmojis() {
     /* $('#emojis').show(); // #show */
     $('#emojis').toggle(); // #toggle
 }
+
+/*
+* constructor for chat messages
+*/
+function Message(text) {
+    this.createdBy = currentChannel.createdBy;
+    this.latitude = currentLocation.latitude;
+    this.longitude = currentLocation.longitude;
+    this.createdOn = new Date();
+    // Expiration: 15 minutes later
+    this.expiresOn = new Date(this.createdOn.getTime() + 15*60000);
+    this.text = text;
+    this.own = true;
+    // console.log("Created: " + this.createdOn.getDate() + "/" + (this.createdOn.getMonth() + 1) + "/" + this.createdOn.getFullYear() + " " + this.createdOn.getHours() + ":" + this.createdOn.getMinutes() + ":" + this.createdOn.getSeconds());
+    // console.log("Expires: " + this.expiresOn.getDate() + "/" + (this.expiresOn.getMonth() + 1) + "/" + this.expiresOn.getFullYear() + " " + this.expiresOn.getHours() + ":" + this.expiresOn.getMinutes() + ":" + this.expiresOn.getSeconds());
+    // console.log("minutes: "+ this.expiresOn.getMinutes() + 15*60000);
+}
+
+/**
+ * send the entered message (to the server)
+ */
+function sendMessage() {
+    // Get the user's input
+    var input = $("#chat-input").val();
+    var message = new Message(input);
+    
+    // Create a new message with that input
+    var messageElement = createMessageElement(message);
+
+    // Create a new message element and append it to html
+    $("#messages").append(messageElement);
+    $("#chat-input").val("");
+}
+
+/**
+ * create a new HTML messag element to be appended to the chat area
+ * @param messageObject the message corresponding with the entered input
+ */
+function createMessageElement(messageObject) {
+    var timeNow = new Date();
+    // Calculate the minutes, that are left
+    var expiresIn = Math.round((((messageObject.expiresOn - timeNow) % 86400000) % 3600000) / 60000);
+    // Create a new html message element
+    var messageElement = '<div class="message">\n    <h3><a href="http://w3w.co/' + messageObject.createdBy + '" target="_blank"><strong>' + messageObject.createdBy + '</strong></a>\n        ' + messageObject.createdOn.toLocaleString() + ' <em>' + expiresIn + ' min. left</em></h3>\n    <p>' + messageObject.text + '</p>\n    <button>+5 min.</button>\n</div>';
+
+    return messageElement;
+}
+
+function listChannels() {
+    var channel1 = createChannelElement(yummy);
+    console.log(channel1);
+    var channel2 = createChannelElement(sevenContinents);
+    var channel3 = createChannelElement(killerApp);
+    var channel4 = createChannelElement(firstPersonOnMars);
+    var channel5 = createChannelElement(octoberfest);
+    $("#channel-list").append(channel1 + '\n' + channel2 + '\n' + channel3 + '\n' + channel4 + '\n' + channel5);
+}
+
+function createChannelElement(channelObject) {
+    
+    // create the channel object's variable name
+    var firstLetter = channelObject.name.substring(1,2).toLowerCase();
+    var channelName = firstLetter + channelObject.name.substring(2);
+
+    // Either a filled or an empty star next to the channel, depending on its status
+    var starred = channelObject.starred? "fas" : "far";
+    
+    // Create a new html channel element
+    var messageElement = '<li onclick="switchChannel(' + channelName + ')">\n        ' + channelObject.name + '\n        <span class="channel-meta">\n            <i class="' + starred + ' fa-star"></i>\n            <!-- #5 #channels #icons now with chevron -->\n            <i class="fas fa-chevron-right"></i>\n        </span>\n    </li>';
+
+    return messageElement;
+
+}

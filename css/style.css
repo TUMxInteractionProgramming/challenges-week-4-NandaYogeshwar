@@ -138,8 +138,9 @@ li.selected {
     border-left: 4px solid #3F51B5;
 }
 
-.fa-star {
+i {
     font-size: 24px;
+    text-align: center;
 }
 
 
@@ -160,7 +161,7 @@ li.selected {
     display: flex;
 }
 
-#tab-bar i, #chat-bar i {
+#tab-bar i {
     font-size: 24px;
     background-color: white;
     width: 33%;
@@ -186,18 +187,30 @@ li.selected {
 }
 
 /* #5 CHAT BAR */
+#chat-bar {
+    display: flexbox;
+}
 
 #chat-bar i {
     /* #5 #smileys #override button styles. We set the chat bar to appear like a tab-bar above. This overrides the tab bar's button scaling */
     /* flex-grow: 0; */
-    text-align: left;
-    
+    font-size: 24px;
+    background-color: white;
+    display: flex;
+    align-items: center;
     margin: 4px;
-    position: relative; 
-    top: 40%;
 }
-#chat-bar span {
+
+#chat-bar .fa-arrow-right {
+    align-items: center;
+    text-align: right;
+}
+#chat-bar input {
     margin: 8px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 19px;
 }
 
 #emojis {
