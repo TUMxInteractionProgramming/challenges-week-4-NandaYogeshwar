@@ -76,7 +76,7 @@ function toggleEmojis() {
 * constructor for chat messages
 */
 function Message(text) {
-    this.createdBy = currentChannel.createdBy;
+    this.createdBy = currentLocation.what3words;
     this.latitude = currentLocation.latitude;
     this.longitude = currentLocation.longitude;
     this.createdOn = new Date();
