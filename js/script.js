@@ -1,7 +1,7 @@
 /* #6 start the #external #action and say hello */
 console.log("App is alive");
 
-var currentChannel = sevenContinents;
+var currentChannel;
 var currentLocation = {
     longitude: 11.572739,
     latitude: 48.150507,
@@ -122,18 +122,20 @@ function createMessageElement(messageObject) {
     return messageElement;
 }
 
+
 /**
  * List all the available channels and append them to the body
  */
 function listChannels() {
     var channel1 = createChannelElement(yummy);
-    console.log(channel1);
     var channel2 = createChannelElement(sevenContinents);
     var channel3 = createChannelElement(killerApp);
     var channel4 = createChannelElement(firstPersonOnMars);
     var channel5 = createChannelElement(octoberfest);
     $("#channel-list").append(channel1 + '\n' + channel2 + '\n' + channel3 + '\n' + channel4 + '\n' + channel5);
+    switchChannel(yummy);
 }
+
 
 /**
  * create a new HTML channel element to be appended to the channel area

@@ -1,43 +1,15 @@
-var yummy = {
-    name: '#Yummy',
-    createdOn: new Date('2016-04-01T00:00:00'),
-    createdBy: 'minus.plus.yummy',
-    starred: false,
-    expiresIn: 100,
-    messageCount: 999
-};
+function Channel(name, createdBy){
+    this.name = name;
+    this.createdOn = new Date();
+    this.createdBy = createdBy;
+    this.starred = false;
+    this.expiresIn = 100;
+    this.messageCount = 999;
+}
 
-var sevenContinents = {
-    name: '#SevenContinents',
-    createdOn: new Date('2016-04-01T00:00:00'),
-    createdBy: 'minus.plus.yummy',
-    starred: true,
-    expiresIn: 100,
-    messageCount: 999
-};
-var killerApp = {
-    name: '#KillerApp',
-    createdOn: new Date('2016-04-01T00:00:00'),
-    createdBy: 'minus.plus.yummy',
-    starred: false,
-    expiresIn: 100,
-    messageCount: 999
-};
-
-var firstPersonOnMars = {
-    name: '#FirstPersonOnMars',
-    createdOn: new Date('2016-04-01T00:00:00'),
-    createdBy: 'minus.plus.yummy',
-    starred: true,
-    expiresIn: 100,
-    messageCount: 999
-};
-
-var octoberfest = {
-    name: '#Octoberfest',
-    createdOn: new Date('2016-04-01T00:00:00'),
-    createdBy: 'minus.plus.yummy',
-    starred: false,
-    expiresIn: 100,
-    messageCount: 999
-};
+// Create some dummy channels
+var yummy = new Channel("#Yummy", "minus.plus.yummy");
+var sevenContinents = new Channel("#SevenContinents", "minus.plus.yummy");
+var killerApp = new Channel("#KillerApp", "minus.plus.yummy");
+var firstPersonOnMars = new Channel("#FirstPersonOnMars", "minus.plus.yummy");
+var octoberfest = new Channel("#Octoberfest", "minus.plus.yummy");
